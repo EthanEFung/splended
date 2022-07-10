@@ -1,5 +1,6 @@
 package models
 
+/* Gem is a unit of purchase */
 type Gem int64
 
 const (

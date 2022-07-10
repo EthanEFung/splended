@@ -3,4 +3,7 @@ package models
 /*
 Tokens are
 */
-type Token Gem
+type Token struct {
+	Value Gem
+
+}

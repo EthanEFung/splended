@@ -8,5 +8,5 @@ import (
 
 func main() {
 	game := models.NewGame()
-	fmt.Println(game.String())
+	fmt.Println(game)
 }
