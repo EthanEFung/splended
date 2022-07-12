@@ -1,8 +1,6 @@
 package models
 
 type Game struct {
-	Pending GameState
-	Playing GameState
 
 	CurrentState GameState
 
@@ -16,10 +14,8 @@ type Game struct {
 
 func NewGame() *Game {
 	game := new(Game)
-	game.Pending = GameStatePending{game}
-	game.Playing = NewGameStatePlaying(game, nil)
 
-	game.CurrentState = game.Pending
+	game.CurrentState = NewGameStatePending(game)
 	return game
 }
 
@@ -41,4 +37,24 @@ func (g *Game) AddPlayer(p *Player) error {
 
 func (g *Game) RemovePlayer(p *Player) error{
 	return g.CurrentState.RemovePlayer(p)
+}
+
+func (g *Game) Take3(a, b, c *Token) error {
+	return g.CurrentState.Take3(a,b,c)
+}
+
+func (g *Game) Take2(token *Token) error {
+	return g.CurrentState.Take2(token)
+}
+
+func (g *Game) Reserve(card *Card) error {
+	return g.CurrentState.Reserve(card)
+}
+
+func (g *Game) Purchase(card *Card) error {
+	return g.CurrentState.Purchase(card)
+}
+
+func (g *Game) EndTurn() error {
+	return g.CurrentState.EndTurn()
 }

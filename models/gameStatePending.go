@@ -9,6 +9,10 @@ type GameStatePending struct {
 	Game *Game
 }
 
+func NewGameStatePending(game *Game) GameStatePending {
+	return GameStatePending{game}
+}
+
 func (s GameStatePending) String() string {
 	return "pending"
 }
