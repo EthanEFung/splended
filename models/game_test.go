@@ -46,26 +46,21 @@ func TestStartingAGame(t *testing.T) {
 	a, b := &Player{}, &Player{}
 
 	g.AddPlayer(a)
-	_, err := g.Next()
+
+	err := g.StartGame()
   if err == nil {
 		t.Fatalf("successfully able to start a game with insufficient number of players")
 	} 
-	if g.Current != nil {
-		t.Fatalf("accidentally assigned a player to game current")
-	}
-	if g.CurrentState() != "pending" {
+	if g.StateString() != "pending" {
 		t.Fatalf("somehow changed the state when the state should have remained the same")
 	}
 	g.AddPlayer(b)
-	_, err = g.Next()
+	err = g.StartGame()
 	if err != nil {
 		t.Fatalf("could not start a game with sufficient number of players")
 	}
-	if g.CurrentState() != "playing" {
+	if g.StateString() == "pending" {
 		t.Fatalf("game transition was not made to playing")
-	}
-	if g.Current != a {
-		t.Fatalf("could not assign the current player to player 1")
 	}
 }
 
@@ -74,9 +69,8 @@ func TestGamePlay(t *testing.T) {
 	a, b := &Player{}, &Player{}
 	g.AddPlayer(a)
 	g.AddPlayer(b)
-	g.Next()
-	state := g.State
-	_, ok := state.(PlayingState)
+	g.StartGame()
+	_, ok := g.CurrentState.(GameStatePlaying)
 	if !ok {
 		t.Fatalf("Could not transition into playing state")
 	}
