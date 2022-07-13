@@ -33,7 +33,6 @@ func TestPendingStateLiberties(t *testing.T) {
 	if len(game.Players) != 1 {
 		t.Fatalf("attempted to remove the last player of the game, but failed")
 	}
-
 }
 
 func TestPendingStateRestrictions(t *testing.T) {

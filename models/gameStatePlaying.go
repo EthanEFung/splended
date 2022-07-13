@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var ErrGameInProgress = errors.New("action cannot be taken while game is in play")
+
 type GameStatePlaying struct {
 	Game *Game
 	Player *Player
@@ -19,15 +21,15 @@ func (s GameStatePlaying) String() string {
 } 
 
 func (s GameStatePlaying) StartGame() error {
-	return errors.New("game has been started")
+	return ErrGameInProgress
 }
 
 func (s GameStatePlaying) AddPlayer(p *Player) error {
-	return errors.New("cannot add a player while game is in progress")
+	return ErrGameInProgress
 }
 
 func (s GameStatePlaying) RemovePlayer(p *Player) error {
-	return errors.New("cannot remove a player while a game is in progress")
+	return ErrGameInProgress
 }
 
 // in the playing state, a user should be able to
